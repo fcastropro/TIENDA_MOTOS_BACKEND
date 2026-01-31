@@ -27,7 +27,12 @@ SECRET_KEY = 'django-insecure-wmw$i1c&1boq6qbbb!#4*890!-s&2d^4w_#ow2oe)7^)=n9r8^
 # SECURITY WARNING: don't run with debug turned on in production!
 DEBUG = True
 
-ALLOWED_HOSTS = ['127.0.0.1', 'localhost']
+ALLOWED_HOSTS = [
+    '127.0.0.1',
+    'localhost',
+    '10.0.2.2',
+    '10.0.3.2',
+]
 
 
 # Application definition
@@ -153,3 +158,9 @@ CSRF_TRUSTED_ORIGINS = [
     "http://localhost:5173",
     "http://127.0.0.1:5173",
 ]
+
+# Cookies para desarrollo local con SPA
+CSRF_COOKIE_SAMESITE = "Lax"
+CSRF_COOKIE_SECURE = False
+SESSION_COOKIE_SAMESITE = "Lax"
+SESSION_COOKIE_SECURE = False

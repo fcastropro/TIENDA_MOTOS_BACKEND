@@ -6,6 +6,9 @@ class Supplier(models.Model):
     name = models.CharField(max_length=120)
     ruc = models.CharField(max_length=20, unique=True)
     phone = models.CharField(max_length=30, blank=True)
+    address = models.CharField(max_length=200, blank=True, default='')
+    email = models.EmailField(blank=True, default='')
+    contact_name = models.CharField(max_length=120, blank=True, default='')
 
     def __str__(self):
         return self.name

@@ -19,6 +19,7 @@ from django.urls import path, include
 from django.conf import settings
 from django.conf.urls.static import static
 from django.http import JsonResponse
+from django.views.decorators.csrf import ensure_csrf_cookie
 
 def home(request):
     return JsonResponse({
@@ -33,9 +34,14 @@ def home(request):
         }
     })
 
+@ensure_csrf_cookie
+def csrf(request):
+    return JsonResponse({"detail": "CSRF cookie set"})
+
 urlpatterns = [
     path('', home),
     path('admin/', admin.site.urls),
+    path('api/csrf/', csrf),
     path('api/', include('users.urls')),
     path('api/', include('contact.urls')),
     path('api/', include('catalog.urls')),

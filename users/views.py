@@ -33,9 +33,16 @@ class LoginView(APIView):
 
         user = authenticate(request, email=email, password=password)
         if not user:
+            user = User.objects.filter(email__iexact=email).first()
+            if not user or not user.check_password(password):
+                return Response(
+                    {'detail': 'Credenciales inválidas.'},
+                    status=status.HTTP_401_UNAUTHORIZED
+                )
+        if not user.is_active:
             return Response(
-                {'detail': 'Credenciales inválidas.'},
-                status=status.HTTP_401_UNAUTHORIZED
+                {'detail': 'Usuario inactivo.'},
+                status=status.HTTP_403_FORBIDDEN
             )
 
         login(request, user)
